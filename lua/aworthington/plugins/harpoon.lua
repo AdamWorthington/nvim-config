@@ -1,10 +1,10 @@
 return {
   -- {{{ Define the Harpoon lazy.vim specificaiton.
 
-  "ThePrimeagen/harpoon",
-  enabled = true,
-  branch = "harpoon2",
-  dependencies = {"nvim-lua/plenary.nvim"},
+    "ThePrimeagen/harpoon",
+    enabled = true,
+    branch = "harpoon2",
+    dependencies = {"nvim-lua/plenary.nvim"},
 
   -- ----------------------------------------------------------------------- }}}
   -- {{{ Define events to load Harpoon.
