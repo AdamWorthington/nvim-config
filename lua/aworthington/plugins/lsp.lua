@@ -68,7 +68,7 @@ return {{
       end)
 
       require('mason-lspconfig').setup({
-        ensure_installed = {'gopls', 'java_language_server'},
+        ensure_installed = {'gopls'},
         handlers = {
           lsp_zero.default_setup,
           lua_ls = function()
