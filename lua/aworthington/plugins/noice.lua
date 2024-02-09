@@ -1,10 +1,22 @@
 return {
     -- lazy.nvim
+    -- lazy.nvim
     {
         "folke/noice.nvim",
         event = "VeryLazy",
         opts = {
-            -- add any options here
+            lsp = {
+                -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+                override = {
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                    ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+                },
+            },
+            presets = {
+				long_message_to_split = true,
+				lsp_doc_border = true,
+			},
         },
         dependencies = {
             -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
