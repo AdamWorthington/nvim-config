@@ -2,10 +2,14 @@ return {
     {
         "zbirenbaum/copilot.lua",
         event = { "BufEnter" },
+        options = {
+            cmd = { "Copilot", "CopilotOpen" },
+        },
         config = function()
             require("copilot").setup({
                 suggestion = {
-                    enabled = false,
+                    enabled = true,
+                    auto_trigger = true,
                 },
                 panel = {
                     enabled = true,

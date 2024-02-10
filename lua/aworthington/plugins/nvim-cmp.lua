@@ -51,13 +51,30 @@ return {
                     ["<C-d>"] = cmp.mapping.scroll_docs(-4), -- scroll down preview
                     ["<C-Space>"] = cmp.mapping.complete({}), -- show completion suggestions
                     ["<C-e>"] = cmp.mapping.abort(), -- close completion window
-                    ["<TAB>"] = cmp.mapping.confirm({ select = true }), -- select suggestion
+                    --["<TAB>"] = cmp.mapping.confirm({ select = true }), -- select suggestion
+                    ['<Tab>'] = cmp.mapping(function(fallback)
+                        local copilot = require 'copilot.suggestion'
+                        if copilot.is_visible() then
+                            copilot.accept()
+                        elseif cmp.visible() then
+                            local entry = cmp.get_selected_entry()
+                            if not entry then
+                                cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+                            else
+                                cmp.confirm()
+                            end
+                        elseif luasnip.expand_or_jumpable() then
+                            luasnip.expand_or_jump()
+                        else
+                            fallback()
+                        end
+                    end, { 'i', 's' }),
                 }),
                 -- sources for autocompletion
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" }, -- lsp
                     { name = "buffer", max_item_count = 5 }, -- text within current buffer
-                    { name = "copilot" }, -- Copilot suggestions
+                    --{ name = "copilot" }, -- Copilot suggestions
                     { name = "path", max_item_count = 3 }, -- file system paths
                     { name = "luasnip", max_item_count = 3 }, -- snippets
                 }),
@@ -74,7 +91,7 @@ return {
                     }),
                 },
                 experimental = {
-                    ghost_text = true,
+                    ghost_text = false,
                 },
             })
             cmp.setup.cmdline(':', {
